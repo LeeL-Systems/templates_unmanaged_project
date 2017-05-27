@@ -1,1 +1,1 @@
-# templates_unmanaged_project
+project_name
