@@ -7,23 +7,18 @@ if(NOT CMAKE_BUILD_TYPE)
   message("[${PROJECT_NAME}] - Build Type: ${CMAKE_BUILD_TYPE}")
 endif(NOT CMAKE_BUILD_TYPE)
 
-if(NOT config_third_party_dir)
-  get_filename_component(var_third_party_dir "/home/links/third-party" ABSOLUTE)
-  set(config_third_party_dir ${var_third_party_dir})
-  message("[${PROJECT_NAME}] - Third-Party Directory: ${config_third_party_dir}")
-endif(NOT config_third_party_dir)
+set(config_third_party_dir "/home/links/third-party" CACHE FILEPATH "Third-party directory.")
+message("[${PROJECT_NAME}] - Third-Party Directory: ${config_third_party_dir}")
 
-if(NOT config_stage_dir)
-  get_filename_component(var_stage_dir "${PROJECT_SOURCE_DIR}/stage" ABSOLUTE)
-  set(config_stage_dir ${var_stage_dir})
-  message("[${PROJECT_NAME}] - Stage Directory: ${config_stage_dir}")
-endif(NOT config_stage_dir)
+set(config_stage_dir "${PROJECT_SOURCE_DIR}/stage" CACHE FILEPATH "Stage directory.")
+message("[${PROJECT_NAME}] - Stage Directory: ${config_stage_dir}")
 
-if(NOT config_bin_output_dir)
-  # string(TOLOWER "${PROJECT_SOURCE_DIR}/stage/${CMAKE_PROJECT_NAME}/${CMAKE_VS_PLATFORM_TOOLSET}" var_bin_output_dir)
-  set(config_bin_output_dir "${config_stage_dir}/${CMAKE_PROJECT_NAME}/${CMAKE_SYSTEM}/${CMAKE_BUILD_TYPE}")
-  message("[${PROJECT_NAME}] - Bin Output Directory: ${config_bin_output_dir}")
-endif(NOT config_bin_output_dir)
+# string(TOLOWER "${PROJECT_SOURCE_DIR}/stage/${CMAKE_PROJECT_NAME}/${CMAKE_VS_PLATFORM_TOOLSET}" var_bin_output_dir)
+set(config_bin_output_dir "${config_stage_dir}/${CMAKE_PROJECT_NAME}/${CMAKE_SYSTEM}/${CMAKE_BUILD_TYPE}" CACHE FILEPATH "Bin output directory")
+message("[${PROJECT_NAME}] - Bin Output Directory: ${config_bin_output_dir}")
+
+set(config_boost_dir "${config_third_party_dir}/boost1.55" CACHE FILEPATH "Boost directory")
+message("[${PROJECT_NAME}] - Boost Directory: ${config_boost_dir}")
 
 # Dependencies
 add_subdirectory("${config_third_party_dir}/build/libs/boost/program_options" "${CMAKE_CURRENT_BINARY_DIR}/boost_program_options")
@@ -38,7 +33,7 @@ add_executable (${PROJECT_NAME}
 
 target_include_directories (${PROJECT_NAME} 
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-  /home/links/third-party/boost
+  ${config_boost_dir}
   )
 
 target_link_libraries(${PROJECT_NAME}
