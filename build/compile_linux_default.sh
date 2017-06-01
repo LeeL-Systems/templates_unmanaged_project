@@ -35,11 +35,13 @@ echo "A - Build Directory: $build_dir"
 echo " "
 echo "*** Staging:" 
 cmake ../../../.. 
+# cmake ../../../.. -DCMAKE_INSTALL_PREFIX=/home/roger/git/templates/templates_unmanaged_project/stage
 
 echo " "
 echo "*** Compiling:" 
 # make VERBOSE=1
 # make
-cmake --build . --config RelWithDebInfo --clean-first
+# cmake --build . --config RelWithDebInfo --clean-first
+cmake --build . --config RelWithDebInfo --clean-first --target install
 
 
