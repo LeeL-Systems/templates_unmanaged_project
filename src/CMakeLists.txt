@@ -1,10 +1,10 @@
 
 # Dependencies
 list(APPEND CMAKE_PREFIX_PATH "${config_stage_dir}/${PROJECT_NAME}/build/${config_platform_name}")
-find_package(boost_program_options CONFIG)
-if(NOT boost_program_options_FOUND)
+find_package(boost_program_options CONFIG QUIET)
+if(NOT TARGET boost_program_options)
   add_subdirectory("${config_boost_dir}/build/libs/program_options" "${CMAKE_CURRENT_BINARY_DIR}/boost_program_options")
-endif(NOT boost_program_options_FOUND)
+endif(NOT TARGET boost_program_options)
 
 # Project
 file(GLOB var_source_files
@@ -32,6 +32,8 @@ target_link_libraries(${PROJECT_NAME}
 # Target Properties
 set_target_properties(${PROJECT_NAME} PROPERTIES 
   OUTPUT_NAME_DEBUG ${PROJECT_NAME}-d
+	COMPILE_PDB_NAME ${PROJECT_NAME}
+	COMPILE_PDB_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/symbols"
   )
 
 # Installation
@@ -41,9 +43,10 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION bin/${config_platform_name}
   RUNTIME DESTINATION bin/${config_platform_name}
   )
-
 install(EXPORT ${PROJECT_NAME}-targets
   FILE ${PROJECT_NAME}-config.cmake
   DESTINATION build/${config_platform_name}
   )
-
+install(DIRECTORY ${PROJECT_BINARY_DIR}/symbols/
+	DESTINATION symbols/${config_platform_name}
+)

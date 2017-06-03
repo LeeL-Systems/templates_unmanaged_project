@@ -13,3 +13,4 @@ bash_dir=$(pwd)
 echo " "
 echo "*** Cleanning:" 
 rm -r ./project_name
+rm -r ../stage

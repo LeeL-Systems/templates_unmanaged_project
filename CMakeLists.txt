@@ -3,7 +3,7 @@ project (project_name)
 
 # Configuration
 if(WIN32)
-  set(config_platform_name "${CMAKE_VS_PLATFORM_TOOLSET}" CACHE FILEPATH "Platform sub directory")
+  set(config_platform_name "Windows-${CMAKE_SYSTEM_VERSION}-${CMAKE_VS_PLATFORM_TOOLSET}" CACHE FILEPATH "Platform sub directory")
   set(config_base_dir "$ENV{HOMEPATH}/projects" CACHE FILEPATH "Links directory")
 else(WIN32)
   set(config_platform_name "${CMAKE_SYSTEM}" CACHE FILEPATH "Platform sub directory")
@@ -20,7 +20,7 @@ message("[${PROJECT_NAME}] - Boost Directory: ${config_boost_dir}")
 
 # CMAKE Default values
 if(NOT CMAKE_BUILD_TYPE) 
-  set(CMAKE_BUILD_TYPE Debug)
+  set(CMAKE_BUILD_TYPE RelWithDebInfo)
   message("[${PROJECT_NAME}] - Build Type (Default): ${CMAKE_BUILD_TYPE}")
 endif(NOT CMAKE_BUILD_TYPE)
 
@@ -29,8 +29,9 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   message("[${PROJECT_NAME}] - Installation Directory (Default): ${CMAKE_INSTALL_PREFIX}")
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-add_subdirectory(src)
+if(EXISTS ${PROJECT_SOURCE_DIR}/src)
+  add_subdirectory(src)
+endif(EXISTS ${PROJECT_SOURCE_DIR}/src)
 
-# Test
-# add_subdirectory (test)
+add_subdirectory (test)
 

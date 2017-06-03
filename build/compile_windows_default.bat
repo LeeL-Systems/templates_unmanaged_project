@@ -30,12 +30,13 @@ echo "A - Build Directory: %build_dir%"
 
 echo " "
 echo "*** Staging:" 
-cmake ../../../.. -Dconfig_links_dir="c:\links"
+cmake ../../../.. 
+rem cmake -DCMAKE_SYSTEM_VERSION=8.1 -G "Visual Studio 12 2013" -T v120 ../../../.. 
 
 echo " "
 echo "*** Compiling:" 
-cmake.exe --build . --config RelWithDebInfo --clean-first
-cmake.exe --build . --config Debug --clean-first
+cmake --build . --config RelWithDebInfo --clean-first --target install
+cmake --build . --config Debug --clean-first --target install
 
 cd ../../.. 
 
