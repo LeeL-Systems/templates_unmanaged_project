@@ -29,54 +29,8 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   message("[${PROJECT_NAME}] - Installation Directory (Default): ${CMAKE_INSTALL_PREFIX}")
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-# Dependencies
-list(APPEND CMAKE_PREFIX_PATH "${config_stage_dir}/${PROJECT_NAME}/build/${config_platform_name}")
-find_package(boost_program_options CONFIG)
-if(NOT boost_program_options_FOUND)
-  add_subdirectory("${config_boost_dir}/build/libs/program_options" "${CMAKE_CURRENT_BINARY_DIR}/boost_program_options")
-endif(NOT boost_program_options_FOUND)
-
-# Project
-file(GLOB var_source_files
-  ./source/*.h
-  ./source/*.cpp
-  )
-message("[${PROJECT_NAME}] - Source Files: ${var_source_files}")
-add_executable(${PROJECT_NAME} ${var_source_files})
-
-# Definitions
-# target_compile_definitions(${PROJECT_NAME} 
-#   PUBLIC <definition>
-#   ) 
-
-# Includes
-# target_include_directories(${PROJECT_NAME} 
-#   # PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-#   PUBLIC ${config_base_dir}
-#   )
-
-target_link_libraries(${PROJECT_NAME}
-  boost_program_options
-  )
-
-# Target Properties
-set_target_properties(${PROJECT_NAME} PROPERTIES 
-  OUTPUT_NAME_DEBUG ${PROJECT_NAME}-d
-  )
-
-# Installation
-install(TARGETS ${PROJECT_NAME}
-  EXPORT ${PROJECT_NAME}-targets
-  ARCHIVE DESTINATION bin/${config_platform_name}
-  LIBRARY DESTINATION bin/${config_platform_name}
-  RUNTIME DESTINATION bin/${config_platform_name}
-  )
-
-install(EXPORT ${PROJECT_NAME}-targets
-  FILE ${PROJECT_NAME}-config.cmake
-  DESTINATION build/${config_platform_name}
-  )
+add_subdirectory(src)
 
 # Test
-add_subdirectory (test)
+# add_subdirectory (test)
 
