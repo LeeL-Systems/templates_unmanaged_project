@@ -18,6 +18,12 @@ message("[${PROJECT_NAME}] - Stage Directory: ${config_stage_dir}")
 set(config_boost_dir "${config_base_dir}/boost" CACHE FILEPATH "Boost directory")
 message("[${PROJECT_NAME}] - Boost Directory: ${config_boost_dir}")
 
+set(config_environment_dir "${config_base_dir}/environment" CACHE FILEPATH "Environment directory")
+message("[${PROJECT_NAME}] - Environment Directory: ${config_environment_dir}")
+
+set(config_gtest_dir "${config_base_dir}/gtest" CACHE FILEPATH "GTest directory")
+message("[${PROJECT_NAME}] - GTest Directory: ${config_gtest_dir}")
+
 # CMAKE Default values
 if(NOT CMAKE_BUILD_TYPE) 
   set(CMAKE_BUILD_TYPE RelWithDebInfo)
@@ -25,7 +31,8 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX ${config_stage_dir}/${PROJECT_NAME} CACHE PATH "Installation Directory" FORCE)
+  set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT FALSE)
+  set(CMAKE_INSTALL_PREFIX ${config_stage_dir}/${PROJECT_NAME}/bin/${config_platform_name} CACHE PATH "Installation Directory" FORCE)
   message("[${PROJECT_NAME}] - Installation Directory (Default): ${CMAKE_INSTALL_PREFIX}")
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
