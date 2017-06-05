@@ -2,6 +2,7 @@
 #ifndef QUALITY_TEST_TEST_CPP_
 #define QUALITY_TEST_TEST_CPP_
 
+#include <quality/quality.hpp>
 #include "../project_name.hpp"
 
 #define QA_PROPJECTNAME project_name
