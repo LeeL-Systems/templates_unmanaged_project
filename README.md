@@ -1,3 +1,4 @@
-#project_name#
+project\_name
+=============
 
-*Project Page*: http://leel-systems.github.io/templates_unmanaged_project
+*Project Page*: http://leel-systems.github.io/templates\_unmanaged\_project
